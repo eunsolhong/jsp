@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="model.Comment" alias="Comment"/>
+		<typeAlias type="model.User" alias="User"/>
+		<typeAlias type="model.CommentUser" alias="CommentUser"/>
+		<typeAlias type="model.Reply" alias="Reply"/>
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver"/>
+				<property name="url" value="jdbc:mysql://localhost:3306/jspdb?characterEncoding=UTF-8&amp;serverTimezone=UTC"/>
+				<property name="username" value="scott"/>
+				<property name="password" value="1111"/>
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<mappers>
+		<mapper resource="mapper/CommentMapper.xml"/>
+		<mapper resource="mapper/CommentMapperResultMap.xml"/>
+		<mapper resource="mapper/CommentMapperDynamicSql.xml"/>
+		<mapper class="mapper.CommentMapper"/>
+	</mappers>
+</configuration>
