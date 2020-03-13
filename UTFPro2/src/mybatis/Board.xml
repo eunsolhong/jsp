@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mybatis.Board">
+
+	<select id="getArticleCount" parameterType="String"
+		resultType="int">
+
+		select if null(count(*),0) form board where board where
+		boardid = #{boardid}
+
+	</select>
+
+	<select id="getArticles" parameterType="hashmap"
+		resultType="Board">
+		select * from board where boardid = #{boardid}
+		order by ref
+		desc, re_step limit #{startRow} , #{endRow}
+	</select>
+
+	<select id="insert_max" resultType="int">
+		select max(num)+1 from board
+	</select>
+
+	<update id="insert_update" parameterType="hashmap">
+
+		update board set
+		re_step = re_step+1 where ref = #{ref} and re_step >
+		#{re_step}
+
+	</update>
+
+	<insert id="insert" parameterType="Board">
+
+		insert into board values
+		(#{num},#{boardid},#{writer},#{emial},#{subject},#{passwd},now(),0
+		,#{ref},#{re_step},#{re_level},#{content},#{ip},#{filename},
+		#{filesize}
+
+	</insert>
+
+	<update id="content_update" parameterType="int">
+		update board set
+		readcount=readcount +1 where num = #{num}
+	</update>
+
+	<select id="getArticle" parameterType="int" resultType=" Board ">
+		select *
+		from board where num = #{num}
+	</select>
+
+	<select id="getpasswd" parameterType="int" resultType=" string ">
+		select
+		passwd from board where num = #{num}
+	</select>
+
+	<update id="update_update" parameterType="int">
+		update board set writer = #{writer}, email = #{email}, subject = #{subject}, passwd = #{passwd}
+					,content = #{content} where num = #{num}
+	</update>
+
+	<delete id="delete" parameterType="int">
+	delete from board where num = #{num}
+	</delete>
+
+</mapper>
